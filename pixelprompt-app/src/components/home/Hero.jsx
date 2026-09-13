@@ -1,7 +1,12 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import * as ReactCountUp from "react-countup";
 import { hero } from "../../data/mockData";
 import { gsap } from "../../lib/gsap";
+
+// react-countup's UMD build double-wraps its default export under Vite's
+// dev interop — unwrap defensively so this works in both dev and build.
+const CountUp = ReactCountUp.default?.default ?? ReactCountUp.default;
 
 export default function Hero() {
   const ref = useRef(null);
@@ -57,11 +62,23 @@ export default function Hero() {
           </Link>
         </div>
 
-        {/* Reserved slot for the R3F/drei 3D centerpiece — wired up separately. */}
-        <div
-          id="hero-3d-slot"
-          className="hero-item mt-16 h-64 w-full max-w-3xl rounded-3xl border border-dashed border-[var(--color-border)] bg-[var(--color-surface)]/50 sm:h-80 md:h-96"
-        />
+        <div className="hero-item mt-12 flex flex-col items-center">
+          <p className="text-4xl font-semibold tracking-tight sm:text-5xl">
+            <CountUp
+              start={0}
+              end={hero.stat.end}
+              decimals={hero.stat.decimals}
+              duration={2}
+              prefix={hero.stat.prefix}
+              suffix={hero.stat.suffix}
+              enableScrollSpy
+              scrollSpyOnce
+            />
+          </p>
+          <p className="mt-2 text-sm text-[var(--color-text-muted)]">
+            {hero.stat.label}
+          </p>
+        </div>
       </div>
     </section>
   );

@@ -45,3 +45,18 @@ body {
   animation-duration: 0.32s;
   animation-timing-function: ease;
 }
+
+/* Plain CSS marquee for the awards ticker — duplicate the track content
+   once and scroll it -50% so the loop reads as seamless. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 24s linear infinite;
+}

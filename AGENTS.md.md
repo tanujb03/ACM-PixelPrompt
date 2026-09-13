@@ -1,14 +1,37 @@
 ---
-name: AGENTS
-description: Resource guide for today's ACM PixelPrompt landing page build — locked tech stack, component/UI sources, 3D and asset libraries, and team roles. Use this before building or styling any part of the landing page.
+name: pixelprompt-resources
+description: Resource guide for the ACM PixelPrompt build — our assigned PS (ACM MITS Student Chapter website), route map, locked tech stack, component/UI sources, 3D and asset libraries, and team roles. Use this before building or styling anything.
 ---
 
 # ACM PixelPrompt — Build Resource Guide
 
 **Event:** ACM PixelPrompt, national-level buildathon, MITS Gwalior ACM Student Chapter, via Unstop.
 **When:** 13 Sept 2026 (build) → 14 Sept 2026 (top-team presentations, if selected).
-**Deliverable:** A single AI-generated landing page — not a full-stack app. Judged on idea, prompt engineering, and the final build's polish/creativity. Theme is open (no fixed problem statement as of the last check).
-**Team:** Tanuj (idea, master prompt, integration, uses Claude + Claude Code + Antigravity), Krrish (build lead, strongest frontend skills, Antigravity), Parth (support — content/QA/bug flags, Antigravity).
+**Deliverable:** An AI-generated frontend built on our assigned PS (below) — organizers confirmed a multi-page frontend is acceptable (not strictly a single-page landing page), frontend-only with mocked data, no real backend/auth/database unless the PS specifically calls for it.
+**Team:** Tanuj (idea, master prompt, integration, uses Claude + Claude Code + Antigravity), Krrish (build lead, strongest frontend skills, Antigravity — joins ~6:30–7:00 PM, not available before), Parth (support — content/QA/bug flags, Antigravity, joins 6:00 PM).
+
+## Assigned Problem Statement — ACM/PS/25: ACM-MITS
+
+**Concept:** Design a website for the ACM MITS Student Chapter.
+
+**Final route map** (locked — supersedes the earlier bonus/optional framing now that Round 2 research showed these are standard, not extras):
+- `/` — Home: hero (chapter name/branding, mission one-liner, primary "Join Us" CTA, live stat via CountUp.js), awards ticker banner, "What We Do" verticals teaser, 2-3 upcoming events teaser, Join CTA
+- `/about` — Mission/history/journey timeline, named verticals (SIGs — reframed as a visual grid per Round 2), faculty advisor credit, mentor quote cards, detailed "Why Join" benefits list
+- `/events` — Named flagship event spotlight (invent one signature event name), full events list with type filter, past event gallery/carousel, footfall stats per event type
+- `/team` — Officer grid (full hierarchy, varied realistic role names), faculty mentor cards — good spot for the Aceternity tilt/3D card hover effect
+- `/achievements` — Multi-metric stat counters (not just members — events, participants, institutions reached, etc.), chronological achievement/news feed (dated entry cards), Hall of Fame, awards/recognition badges
+- `/contact` — Contact info, join/membership interest form (fake-functional, no backend), FAQ, social links
+
+**Global:** Navbar (Home / About / Events / Team / Achievements / Contact + Join button) and Footer (full link list, socials, ACM-affiliation badge, credit line) on every page.
+
+**Official judging weightage** (so effort is spent where it counts): UI/UX & Visual Design 25%, Problem Statement & Idea 20%, Functionality & UX 20%, AI Usage & Innovation 15%, Creativity & Originality 10%, Presentation & Explanation 10%. **UI/UX polish is the single largest category** — prioritize it over adding more bonus features.
+
+## Locked stack decisions
+
+- **Vite + React + Tailwind CSS** — chosen because our component sources (Uilora, Watermelon UI, shadcn/ui, HeroUI, 21st.dev) are all React/Tailwind-native, and React sets up React Three Fiber cleanly.
+- **React Router (react-router-dom)** for multi-page navigation — required now that scope is a multi-page frontend, not a single landing page.
+- **Single shared `mockData.js` (or `/data` folder)** holding all fake data used across pages, so reskinning after the 4:30 PM theme reveal only means editing one file.
+- Persistent Navbar + Footer wrapping all routes, owned by Parth — page content owned by Tanuj (and Krrish once he joins).
 
 ## Working instruction — read this first
 
