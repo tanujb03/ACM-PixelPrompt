@@ -1,20 +1,54 @@
 import OfficerGrid from "../components/team/OfficerGrid";
 import FacultyMentorCards from "../components/team/FacultyMentorCards";
+import FloatingShape from "../components/shared/FloatingShape";
+import SplitTextReveal from "../components/shared/SplitTextReveal";
+import WaveDivider from "../components/shared/WaveDivider";
 
 export default function Team() {
   return (
-    <>
-      <section className="px-6 pt-24 pb-8 text-center sm:pt-32">
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-5xl">
-          Our Team
-        </h1>
-        <p className="mx-auto mt-4 max-w-xl text-base text-[var(--color-text-muted)]">
-          The students and faculty who run the chapter day-to-day.
+    <div className="relative overflow-hidden">
+      {/* Ambient background shapes */}
+      <FloatingShape
+        type="sphere"
+        color="var(--color-accent)"
+        size="h-80 w-80"
+        className="-top-24 -left-20 opacity-20"
+        blur="blur-[90px]"
+        speed={16}
+      />
+      <FloatingShape
+        type="pill"
+        color="var(--color-pink)"
+        size="h-96 w-96"
+        className="top-1/3 -right-32 opacity-15"
+        blur="blur-[110px]"
+        speed={19}
+      />
+
+      {/* Hero Header */}
+      <section className="relative z-10 px-6 pt-32 pb-12 text-center sm:pt-40 sm:pb-16">
+        <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-semibold tracking-widest text-[var(--color-pink)] uppercase backdrop-blur-md">
+          <span className="h-2 w-2 rounded-full bg-[var(--color-pink)] animate-pulse" />
+          The Crew
+        </div>
+
+        <div className="mt-6 flex justify-center">
+          <SplitTextReveal
+            text="Leadership & Minds."
+            as="h1"
+            className="font-display text-4xl font-extrabold tracking-tight text-[var(--color-text)] sm:text-6xl md:text-7xl"
+          />
+        </div>
+
+        <p className="mx-auto mt-6 max-w-xl text-base text-[var(--color-text-muted)] sm:text-lg">
+          The passionate developers, designers, and faculty researchers powering the chapter day in and day out.
         </p>
       </section>
 
       <OfficerGrid />
+      <WaveDivider fillBottom="rgba(211,197,246,0.03)" />
       <FacultyMentorCards />
-    </>
+    </div>
   );
 }
+
