@@ -1,15 +1,47 @@
 @import "tailwindcss";
 
+/* ========================================================================
+   ACM Nova — Exact Crency.agency Design System
+   ======================================================================== */
+
 @theme {
-  --color-bg: #0a0a0c;
-  --color-surface: #131317;
-  --color-surface-2: #1c1c22;
-  --color-border: #2a2a32;
-  --color-text: #f4f4f6;
-  --color-text-muted: #9a9aa5;
+  /* --- Crency dark navy palette --- */
+  --color-bg: #1a1145;
+  --color-bg-deep: #110b33;
+  --color-surface: #231560;
+  --color-surface-2: #2d1b69;
+  --color-border: rgba(211, 197, 246, 0.12);
+  --color-border-bright: rgba(211, 197, 246, 0.25);
+
+  /* --- Lavender light sections --- */
+  --color-lavender: #c5b4e3;
+  --color-lavender-bg: #c8b8e6;
+
+  /* --- Text --- */
+  --color-text: #f0ecf9;
+  --color-text-muted: #9b8ec4;
+  --color-text-lavender: #d3c5f6;
+  --color-text-ghost: rgba(197, 180, 227, 0.35);
+
+  /* --- Accents (exact Crency colors) --- */
   --color-accent: #7c5cff;
   --color-accent-2: #ff5c9a;
+  --color-lime: #c8e62e;
+  --color-pink: #f72585;
+  --color-blue: #4361ee;
+  --color-purple: #7209b7;
+  --color-orange: #e1611c;
+  --color-red: #ea3323;
+
+  /* --- Fonts --- */
+  --font-hero: "Unbounded", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
 }
+
+/* ========================================================================
+   Base Reset & Typography
+   ======================================================================== */
 
 html {
   scroll-behavior: auto;
@@ -19,44 +51,633 @@ body {
   margin: 0;
   background: var(--color-bg);
   color: var(--color-text);
-  font-family:
-    system-ui,
-    -apple-system,
-    "Segoe UI",
-    Roboto,
-    sans-serif;
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  cursor: none;
 }
 
 * {
   box-sizing: border-box;
 }
 
+::selection {
+  background: var(--color-lime);
+  color: #1a1145;
+}
+
+@media (hover: none) {
+  body { cursor: auto; }
+}
+
+/* ========================================================================
+   Font Utilities
+   ======================================================================== */
+
+.font-hero {
+  font-family: var(--font-hero);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* ========================================================================
+   Giant Hero Text (Crency-style viewport-filling uppercase)
+   ======================================================================== */
+
+.hero-giant {
+  font-family: var(--font-hero);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--color-text-ghost);
+}
+
+/* ========================================================================
+   Lavender Light Section
+   ======================================================================== */
+
+.section-lavender {
+  background-color: var(--color-lavender-bg);
+  color: #1a1145;
+}
+
+.section-lavender .text-muted-lavender {
+  color: rgba(26, 17, 69, 0.6);
+}
+
+/* ========================================================================
+   Glassmorphism
+   ======================================================================== */
+
+.glass {
+  background: rgba(26, 17, 69, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-border);
+}
+
+.glass-light {
+  background: rgba(211, 197, 246, 0.06);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border);
+}
+
+/* ========================================================================
+   Grain Texture Overlay
+   ======================================================================== */
+
+.grain-overlay::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ========================================================================
+   Reveal base class (GSAP will animate from this state)
+   ======================================================================== */
+
 .reveal {
   opacity: 0;
   transform: translateY(40px);
 }
 
-/* Simple crossfade for React Router's View Transitions API navigation. */
+/* ========================================================================
+   View Transitions
+   ======================================================================== */
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 0.32s;
-  animation-timing-function: ease;
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Plain CSS marquee for the awards ticker — duplicate the track content
-   once and scroll it -50% so the loop reads as seamless. */
+/* ========================================================================
+   "You" Cursor (Crency-style lime pill label)
+   ======================================================================== */
+
+.cursor-you {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.cursor-you-arrow {
+  width: 20px;
+  height: 20px;
+  color: var(--color-lime);
+}
+
+.cursor-you-label {
+  background: var(--color-lime);
+  color: #1a1145;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+@media (hover: none) {
+  .cursor-you { display: none; }
+}
+
+/* ========================================================================
+   Menu Roll Hover (Nav Links)
+   ======================================================================== */
+
+.menu-roll {
+  display: inline-flex;
+  overflow: hidden;
+  height: 1.4em;
+}
+
+.menu-roll-stack {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-roll:hover .menu-roll-stack {
+  transform: translateY(-50%);
+}
+
+.menu-roll-line {
+  display: block;
+  height: 1.4em;
+  line-height: 1.4em;
+}
+
+/* ========================================================================
+   Bubble Button Effect
+   ======================================================================== */
+
+.btn-bubble {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-bubble::before {
+  content: "";
+  position: absolute;
+  top: var(--bubble-y, 50%);
+  left: var(--bubble-x, 50%);
+  width: 0;
+  height: 0;
+  background: var(--color-lime);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: -1;
+}
+
+.btn-bubble:hover::before {
+  width: 300%;
+  height: 300%;
+}
+
+.btn-bubble:hover {
+  color: #1a1145;
+}
+
+/* ========================================================================
+   Magnetic Button Pull
+   ======================================================================== */
+
+.magnetic-wrap {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ========================================================================
+   Glow Card
+   ======================================================================== */
+
+.glow-card {
+  position: relative;
+  background: var(--color-surface);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.4s ease;
+}
+
+.glow-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(124, 92, 255, 0.3),
+    rgba(211, 197, 246, 0.1),
+    rgba(194, 236, 64, 0.2)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.glow-card:hover::before {
+  opacity: 1;
+}
+
+.glow-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(124, 92, 255, 0.15);
+}
+
+/* ========================================================================
+   Crency Service Card (large solid-color cards)
+   ======================================================================== */
+
+.service-card {
+  border-radius: 30px;
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 520px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+}
+
+.service-card-lime {
+  background: var(--color-lime);
+  color: #1a1145;
+}
+
+.service-card-pink {
+  background: var(--color-pink);
+  color: white;
+}
+
+.service-card-purple {
+  background: var(--color-purple);
+  color: white;
+}
+
+/* Rotating flower/asterisk decoration */
+.flower-spin {
+  animation: rotate-slow 20s linear infinite;
+}
+
+/* ========================================================================
+   Bottom Floating Nav Bar (Crency-style)
+   ======================================================================== */
+
+.bottom-bar {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border-radius: 9999px;
+  background: rgba(26, 17, 69, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(211, 197, 246, 0.15);
+  padding: 0.5rem 0.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+.bottom-bar-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.bottom-bar-section:hover {
+  color: var(--color-text);
+}
+
+.bottom-bar-section strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.bottom-bar-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(211, 197, 246, 0.2);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text);
+  background: transparent;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.bottom-bar-cta:hover {
+  background: rgba(211, 197, 246, 0.1);
+  border-color: rgba(211, 197, 246, 0.3);
+}
+
+.bottom-bar-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-lime);
+}
+
+/* ========================================================================
+   Icon Swap Tile
+   ======================================================================== */
+
+.tile-icon-swap {
+  position: relative;
+  overflow: hidden;
+}
+
+.tile-icon-swap .icon-a,
+.tile-icon-swap .icon-b {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tile-icon-swap .icon-b {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+.tile-icon-swap:hover .icon-a {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.tile-icon-swap:hover .icon-b {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ========================================================================
+   Keyframe Animations
+   ======================================================================== */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotate-slow-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(var(--sway-from, -8deg)); }
+  50% { transform: rotate(var(--sway-to, 8deg)); }
+}
+
 @keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(124, 92, 255, 0.4); }
+  50% { box-shadow: 0 0 20px 4px rgba(124, 92, 255, 0.15); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes draw-line {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ========================================================================
+   Animation Utilities
+   ======================================================================== */
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-delay-1 {
+  animation: float 4.5s ease-in-out 0.5s infinite;
+}
+
+.animate-float-delay-2 {
+  animation: float 5s ease-in-out 1s infinite;
+}
+
+.animate-rotate-slow {
+  animation: rotate-slow 20s linear infinite;
+}
+
+.animate-rotate-slow-reverse {
+  animation: rotate-slow-reverse 25s linear infinite;
+}
+
+.animate-sway {
+  animation: sway 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 6s ease infinite;
 }
 
 .marquee-track {
-  animation: marquee 24s linear infinite;
+  animation: marquee 28s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ========================================================================
+   Floating Shapes (hero decorations)
+   ======================================================================== */
+
+.hero-shape {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hero-shape-label {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.hero-shape-num {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  display: block;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+/* ========================================================================
+   Wave Divider
+   ======================================================================== */
+
+.wave-divider {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: -1px;
+  margin-bottom: -1px;
+}
+
+/* ========================================================================
+   Split Text Chars (for GSAP animation)
+   ======================================================================== */
+
+.split-char,
+.split-word {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* ========================================================================
+   3D Card Tilt
+   ======================================================================== */
+
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tilt-card:hover {
+  transform: perspective(800px) rotateY(4deg) rotateX(-2deg) scale(1.02);
+}
+
+/* ========================================================================
+   Animated Underline
+   ======================================================================== */
+
+.animated-underline {
+  position: relative;
+}
+
+.animated-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-lime);
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.animated-underline:hover::after {
+  width: 100%;
+}
+
+/* ========================================================================
+   Accordion
+   ======================================================================== */
+
+.accordion-content {
+  overflow: hidden;
+  transition: height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ========================================================================
+   Scrollbar Styling
+   ======================================================================== */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
 }
