@@ -12,20 +12,18 @@ export default function Achievements() {
     <div className="relative overflow-hidden">
       {/* Ambient background shapes */}
       <FloatingShape
-        type="sphere"
+        shape="circle"
         color="var(--color-lime)"
-        size="h-80 w-80"
-        className="-top-20 -right-20 opacity-20"
-        blur="blur-[90px]"
-        speed={15}
+        size={320}
+        className="-top-20 -right-20 opacity-20 blur-[90px]"
+        rotateSpeed="15s"
       />
       <FloatingShape
-        type="torus"
+        shape="decagon"
         color="var(--color-accent)"
-        size="h-96 w-96"
-        className="top-1/3 -left-32 opacity-15"
-        blur="blur-[110px]"
-        speed={20}
+        size={384}
+        className="top-1/3 -left-32 opacity-15 blur-[110px]"
+        rotateSpeed="20s"
       />
 
       {/* Hero Header */}
@@ -37,14 +35,14 @@ export default function Achievements() {
 
         <div className="mt-6 flex justify-center">
           <SplitTextReveal
-            text="Victories & Accolades."
+            text={achievements.pageHeading}
             as="h1"
             className="font-display text-4xl font-extrabold tracking-tight text-[var(--color-text)] sm:text-6xl md:text-7xl"
           />
         </div>
 
         <p className="mx-auto mt-6 max-w-xl text-base text-[var(--color-text-muted)] sm:text-lg">
-          A running showcase of hackathon championships, open-source milestones, and chapter awards.
+          {achievements.pageSubheading}
         </p>
       </section>
 

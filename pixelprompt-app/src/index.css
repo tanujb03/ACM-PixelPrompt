@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ========================================================================
-   ACM Nova — Exact Crency.agency Design System
+   ACM MITS — Crency.agency-inspired Design System
    ======================================================================== */
 
 @theme {
@@ -347,6 +347,11 @@ body {
 
 .service-card-purple {
   background: var(--color-purple);
+  color: white;
+}
+
+.service-card-blue {
+  background: var(--color-blue);
   color: white;
 }
 

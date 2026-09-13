@@ -56,21 +56,6 @@ export default function ContactInfo() {
           </button>
         </div>
 
-        {/* Meeting card */}
-        <div className="flex items-center gap-3.5 rounded-2xl border border-white/5 bg-white/[0.03] p-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--color-pink)]/15 text-[var(--color-pink)]">
-            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <div>
-            <p className="text-xs text-[var(--color-text-muted)]">Weekly Meetup</p>
-            <p className="text-sm font-medium text-[var(--color-text)]">
-              {contact.info.meetingTime}
-            </p>
-          </div>
-        </div>
-
         {/* Location card */}
         <div className="flex items-center gap-3.5 rounded-2xl border border-white/5 bg-white/[0.03] p-4">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--color-accent)]/15 text-[var(--color-accent)]">
@@ -80,9 +65,9 @@ export default function ContactInfo() {
             </svg>
           </div>
           <div>
-            <p className="text-xs text-[var(--color-text-muted)]">Chapter HQ</p>
+            <p className="text-xs text-[var(--color-text-muted)]">Location</p>
             <p className="text-sm font-medium text-[var(--color-text)]">
-              {contact.info.address}
+              {contact.info.location}
             </p>
           </div>
         </div>

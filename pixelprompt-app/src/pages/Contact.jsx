@@ -4,26 +4,25 @@ import FAQAccordion from "../components/contact/FAQAccordion";
 import FloatingShape from "../components/shared/FloatingShape";
 import SplitTextReveal from "../components/shared/SplitTextReveal";
 import WaveDivider from "../components/shared/WaveDivider";
+import { contact } from "../data/mockData";
 
 export default function Contact() {
   return (
     <div className="relative overflow-hidden">
       {/* Decorative background shapes */}
       <FloatingShape
-        type="sphere"
+        shape="circle"
         color="var(--color-lime)"
-        size="h-72 w-72"
-        className="-top-24 -right-20 opacity-20"
-        blur="blur-[90px]"
-        speed={14}
+        size={288}
+        className="-top-24 -right-20 opacity-20 blur-[90px]"
+        rotateSpeed="14s"
       />
       <FloatingShape
-        type="pill"
+        shape="pill"
         color="var(--color-pink)"
-        size="h-80 w-80"
-        className="top-1/3 -left-32 opacity-15"
-        blur="blur-[100px]"
-        speed={18}
+        size={320}
+        className="top-1/3 -left-32 opacity-15 blur-[100px]"
+        rotateSpeed="18s"
       />
 
       {/* Hero header */}
@@ -34,13 +33,13 @@ export default function Contact() {
         </div>
         <div className="mt-6 flex justify-center">
           <SplitTextReveal
-            text="Get in Touch & Join."
+            text={contact.pageHeading}
             as="h1"
             className="font-display text-4xl font-extrabold tracking-tight text-[var(--color-text)] sm:text-6xl md:text-7xl"
           />
         </div>
         <p className="mx-auto mt-6 max-w-2xl text-base text-[var(--color-text-muted)] sm:text-lg">
-          Whether you want to build cutting-edge software, lead workshops, or compete in global hackathons — your journey starts here.
+          {contact.pageSubheading}
         </p>
       </section>
 

@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "../../lib/gsap";
 import FloatingShape from "../shared/FloatingShape";
+import MagneticButton from "../shared/MagneticButton";
+import { hero } from "../../data/mockData";
 
 export default function Hero() {
   const ref = useRef(null);
@@ -103,73 +105,68 @@ export default function Hero() {
         </svg>
       </div>
 
-      {/* Floating decorative sticker shapes */}
+      {/* Floating decorative sticker shapes — clustered along the right
+          margin so they never collide with the hero text column on the left */}
       <div className="pointer-events-none absolute inset-0 hidden lg:block">
-        {/* Top-left: Star with "4.9/5" */}
-        <div className="hero-float" style={{ position: "absolute", top: "10%", left: "5%" }}>
+        <div className="hero-float" style={{ position: "absolute", top: "6%", right: "4%" }}>
           <FloatingShape
             shape="star"
             color="#f72585"
-            size={100}
-            num="4.9/5"
-            label="647 reviews"
+            size={95}
+            num="45+"
+            label="events hosted"
             rotateSpeed="25s"
           />
         </div>
-        {/* Right top: octagon "Free website audit" */}
-        <div className="hero-float" style={{ position: "absolute", top: "12%", right: "3%" }}>
+        <div className="hero-float" style={{ position: "absolute", top: "20%", right: "20%" }}>
           <FloatingShape
             shape="decagon"
             color="#ea3323"
-            size={85}
-            label="Free website audit"
+            size={80}
+            label="3 hackathon wins"
             rotateSpeed="18s"
             reverse
           />
         </div>
-        {/* Left middle: blue pill */}
-        <div className="hero-float" style={{ position: "absolute", top: "45%", left: "8%" }}>
+        <div className="hero-float" style={{ position: "absolute", top: "36%", right: "3%" }}>
           <FloatingShape
             shape="pill"
             color="#4361ee"
             size={110}
-            label="Post-launch support"
+            label="Since 2019"
             rotateSpeed="0s"
             floatDelay={1}
           />
         </div>
-        {/* Center-right: lime pill "1h response time" */}
-        <div className="hero-float" style={{ position: "absolute", top: "28%", right: "30%" }}>
+        <div className="hero-float" style={{ position: "absolute", top: "52%", right: "19%" }}>
           <FloatingShape
             shape="pill"
             color="#c8e62e"
             size={120}
-            label="1h response time"
+            label="4 active SIGs"
             rotateSpeed="0s"
             floatDelay={0.5}
           />
         </div>
-        {/* Bottom-left: white gear "500+" */}
-        <div className="hero-float" style={{ position: "absolute", bottom: "15%", left: "25%" }}>
+        <div className="hero-float" style={{ position: "absolute", bottom: "16%", right: "5%" }}>
           <FloatingShape
             shape="star"
             color="#f5f5f0"
-            size={80}
+            size={78}
             num="500+"
-            label="websites built"
+            label="students engaged"
             rotateSpeed="30s"
             reverse
             floatDelay={1.2}
           />
         </div>
-        {/* Bottom-right: purple flag "9 years" */}
-        <div className="hero-float" style={{ position: "absolute", bottom: "20%", right: "10%" }}>
+        <div className="hero-float" style={{ position: "absolute", bottom: "4%", right: "22%" }}>
           <FloatingShape
             shape="circle"
             color="#7209b7"
-            size={90}
-            num="9 years"
-            label="of experience"
+            size={85}
+            num="6 years"
+            label="of building"
             rotateSpeed="0s"
             floatDelay={0.8}
           />
@@ -178,17 +175,36 @@ export default function Hero() {
 
       {/* GIANT UPPERCASE TEXT — Crency style */}
       <div className="relative z-[4] flex min-h-[70vh] flex-col justify-center">
-        <h1 className="hero-giant select-none" aria-label="Websites people trust. Designed to sell.">
-          <span className="hero-line block text-[10vw] leading-[0.95] sm:text-[11vw] md:text-[12vw] lg:text-[13vw]">
-            WHERE CURIOUS
+        <span className="hero-line mb-4 block text-xs font-bold tracking-[0.25em] text-[var(--color-lime)] uppercase sm:text-sm">
+          {hero.eyebrow}
+        </span>
+        <h1 className="hero-giant select-none" aria-label={hero.headline}>
+          <span className="hero-line block text-[9vw] leading-[0.95] sm:text-[8vw] md:text-[8vw] lg:text-[7.5vw]">
+            Where Computing
           </span>
-          <span className="hero-line block text-[12vw] leading-[0.95] sm:text-[14vw] md:text-[15vw] lg:text-[16vw]">
-            MINDS
-          </span>
-          <span className="hero-line block text-[8vw] leading-[0.95] sm:text-[9vw] md:text-[10vw] lg:text-[11vw]">
-            BUILD THE FUTURE.
+          <span className="hero-line block text-[9vw] leading-[0.95] sm:text-[8vw] md:text-[8vw] lg:text-[7.5vw]">
+            Minds Come Together.
           </span>
         </h1>
+
+        <p className="hero-line mt-8 max-w-xl text-base leading-relaxed text-[var(--color-text-muted)] sm:text-lg">
+          {hero.subhead}
+        </p>
+
+        <div className="hero-line mt-8 flex flex-wrap items-center gap-4">
+          <MagneticButton
+            to={hero.primaryCta.to}
+            className="inline-flex items-center gap-2 rounded-full bg-[var(--color-lime)] px-7 py-3.5 text-sm font-bold text-[#150734]"
+          >
+            {hero.primaryCta.label}
+          </MagneticButton>
+          <MagneticButton
+            to={hero.secondaryCta.to}
+            className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border-bright)] px-7 py-3.5 text-sm font-semibold text-[var(--color-text)] transition hover:bg-[var(--color-surface)]"
+          >
+            {hero.secondaryCta.label}
+          </MagneticButton>
+        </div>
       </div>
 
       {/* Bottom gradient fade into next section */}

@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { verticals } from "../../data/mockData";
+import { whatWeDo } from "../../data/mockData";
 import SplitTextReveal from "../shared/SplitTextReveal";
 import Reveal from "../shared/Reveal";
 
@@ -26,97 +25,54 @@ function FlowerSVG({ color = "currentColor", className = "" }) {
   );
 }
 
-// Map verticals to the 3 Crency-style card configurations
-const cardConfigs = [
-  {
-    verticalId: "acm-w",
-    colorClass: "service-card-lime",
-    flowerColor: "#1a1145",
-    textColor: "#1a1145",
-    mutedColor: "rgba(26,17,69,0.6)",
-    buttonClass: "bg-[#1a1145] text-white",
-    ctaLabel: "explore ACM-W",
-  },
-  {
-    verticalId: "sig-ai",
-    colorClass: "service-card-pink",
-    flowerColor: "rgba(255,255,255,0.3)",
-    textColor: "white",
-    mutedColor: "rgba(255,255,255,0.7)",
-    buttonClass: "bg-white/20 text-white border border-white/30",
-    ctaLabel: "explore SIG-AI",
-  },
-  {
-    verticalId: "sig-web-cloud",
-    colorClass: "service-card-purple",
-    flowerColor: "rgba(255,255,255,0.2)",
-    textColor: "white",
-    mutedColor: "rgba(255,255,255,0.6)",
-    buttonClass: "bg-white/20 text-white border border-white/30",
-    ctaLabel: "explore SIG-Web",
-  },
+const cardStyles = [
+  { colorClass: "service-card-lime", flowerColor: "#150734", textColor: "#150734" },
+  { colorClass: "service-card-pink", flowerColor: "rgba(255,255,255,0.3)", textColor: "white" },
+  { colorClass: "service-card-blue", flowerColor: "rgba(255,255,255,0.25)", textColor: "white" },
+  { colorClass: "service-card-purple", flowerColor: "rgba(255,255,255,0.2)", textColor: "white" },
 ];
 
 export default function WhatWeDoTeaser() {
   return (
     <section className="relative px-6 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl">
-        {/* Section heading — Crency style centered uppercase */}
         <div className="mb-16 text-center">
           <SplitTextReveal
-            text="What Are We Building For You?"
+            text={whatWeDo.heading}
             as="h2"
             className="font-hero text-3xl font-black uppercase tracking-tight sm:text-5xl md:text-6xl"
           />
+          <p className="mt-4 text-sm text-[var(--color-text-muted)] sm:text-base">
+            {whatWeDo.subheading}
+          </p>
         </div>
 
-        {/* 3-column service cards grid */}
         <Reveal
           as="div"
           stagger={0.15}
-          className="grid grid-cols-1 gap-6 md:grid-cols-3"
+          className="grid grid-cols-1 gap-6 sm:grid-cols-2"
         >
-          {cardConfigs.map((config) => {
-            const vertical = verticals.find((v) => v.id === config.verticalId);
-            if (!vertical) return null;
-
+          {whatWeDo.items.map((item, i) => {
+            const style = cardStyles[i % cardStyles.length];
             return (
-              <div
-                key={config.verticalId}
-                className={`service-card ${config.colorClass}`}
-              >
-                {/* Card title */}
+              <div key={item.id} className={`service-card ${style.colorClass}`}>
                 <h3
-                  className="font-hero text-3xl font-black uppercase tracking-tight sm:text-4xl lg:text-5xl"
-                  style={{ color: config.textColor }}
+                  className="font-hero text-2xl font-black uppercase tracking-tight sm:text-3xl"
+                  style={{ color: style.textColor }}
                 >
-                  {vertical.name}
+                  {item.title}
                 </h3>
 
-                {/* Card description */}
                 <p
                   className="mt-4 max-w-xs text-sm leading-relaxed sm:text-base"
-                  style={{ color: config.mutedColor }}
+                  style={{ color: style.textColor === "white" ? "rgba(255,255,255,0.7)" : "rgba(21,7,52,0.6)" }}
                 >
-                  {vertical.description}
+                  {item.description}
                 </p>
 
-                {/* Rotating flower decoration */}
-                <div className="my-6 flex-1 flex items-center justify-center">
-                  <FlowerSVG
-                    color={config.flowerColor}
-                    className="h-32 w-32 sm:h-40 sm:w-40"
-                  />
+                <div className="my-6 flex flex-1 items-center justify-center">
+                  <FlowerSVG color={style.flowerColor} className="h-28 w-28 sm:h-32 sm:w-32" />
                 </div>
-
-                {/* CTA button at bottom */}
-                <Link
-                  to="/about"
-                  viewTransition
-                  className={`mt-auto inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold transition-all hover:scale-105 ${config.buttonClass}`}
-                >
-                  {config.ctaLabel}
-                </Link>
               </div>
             );
           })}

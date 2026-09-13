@@ -1,4 +1,4 @@
-import { verticals } from "../../data/mockData";
+import { about } from "../../data/mockData";
 import VerticalCard from "../shared/VerticalCard";
 import Reveal from "../shared/Reveal";
 import SplitTextReveal from "../shared/SplitTextReveal";
@@ -8,7 +8,7 @@ export default function VerticalsGrid() {
     <section className="relative border-y border-[var(--color-border)] bg-[var(--color-surface)]/30 px-6 py-20 sm:py-28">
       <div className="mx-auto max-w-5xl">
         <SplitTextReveal
-          text="Our Verticals & SIGs"
+          text={about.sigsHeading}
           as="h2"
           className="text-center font-display text-3xl font-bold tracking-tight sm:text-4xl"
         />
@@ -18,8 +18,8 @@ export default function VerticalsGrid() {
           stagger={0.1}
           className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
         >
-          {verticals.map((vertical) => (
-            <VerticalCard key={vertical.id} vertical={vertical} />
+          {about.sigs.map((sig) => (
+            <VerticalCard key={sig.id} vertical={sig} />
           ))}
         </Reveal>
       </div>

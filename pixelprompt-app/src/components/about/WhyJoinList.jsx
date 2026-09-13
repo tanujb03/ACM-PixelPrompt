@@ -18,7 +18,7 @@ export default function WhyJoinList() {
     <section className="relative border-y border-[var(--color-border)] bg-[var(--color-surface)]/30 px-6 py-20 sm:py-28">
       <div className="mx-auto max-w-4xl">
         <SplitTextReveal
-          text="Why Join"
+          text={about.whyJoinHeading}
           as="h2"
           className="text-center font-display text-3xl font-bold tracking-tight sm:text-4xl"
         />
@@ -31,22 +31,21 @@ export default function WhyJoinList() {
           {about.whyJoin.map((item, i) => (
             <div
               key={item.id}
-              className="glow-card group flex items-start gap-4 p-5"
+              className="glow-card group flex items-center gap-4 p-5"
             >
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-surface-2)] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
                 {icons[i % icons.length]}
               </span>
-              <div>
-                <h3 className="font-display text-base font-semibold text-[var(--color-text)]">
-                  {item.title}
-                </h3>
-                <p className="mt-1 text-sm leading-relaxed text-[var(--color-text-muted)]">
-                  {item.description}
-                </p>
-              </div>
+              <p className="text-sm leading-relaxed text-[var(--color-text)]">
+                {item.text}
+              </p>
             </div>
           ))}
         </Reveal>
+
+        <p className="mt-12 text-center font-display text-lg font-semibold text-[var(--color-text)]">
+          {about.whyJoinClosingLine}
+        </p>
       </div>
     </section>
   );

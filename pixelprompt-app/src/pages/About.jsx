@@ -13,20 +13,18 @@ export default function About() {
     <div className="relative overflow-hidden">
       {/* Ambient background shapes */}
       <FloatingShape
-        type="sphere"
+        shape="circle"
         color="var(--color-accent)"
-        size="h-80 w-80"
-        className="-top-20 -left-20 opacity-20"
-        blur="blur-[90px]"
-        speed={16}
+        size={320}
+        className="-top-20 -left-20 opacity-20 blur-[90px]"
+        rotateSpeed="16s"
       />
       <FloatingShape
-        type="pill"
+        shape="pill"
         color="var(--color-lime)"
-        size="h-96 w-96"
-        className="top-1/4 -right-32 opacity-15"
-        blur="blur-[110px]"
-        speed={20}
+        size={384}
+        className="top-1/4 -right-32 opacity-15 blur-[110px]"
+        rotateSpeed="20s"
       />
 
       {/* Hero Header */}
@@ -38,7 +36,7 @@ export default function About() {
 
         <div className="mt-6 flex justify-center">
           <SplitTextReveal
-            text={about.missionHeadline}
+            text={about.pageHeading}
             as="h1"
             className="mx-auto max-w-4xl font-display text-4xl font-extrabold tracking-tight text-[var(--color-text)] sm:text-6xl md:text-7xl"
           />

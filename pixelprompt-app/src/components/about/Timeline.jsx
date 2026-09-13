@@ -2,13 +2,6 @@ import { about } from "../../data/mockData";
 import Reveal from "../shared/Reveal";
 import SplitTextReveal from "../shared/SplitTextReveal";
 
-function formatDate(dateStr) {
-  return new Date(dateStr).toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "long",
-  });
-}
-
 export default function Timeline() {
   const colors = [
     "var(--color-accent)",
@@ -46,7 +39,7 @@ export default function Timeline() {
               />
 
               <p className="text-xs font-semibold tracking-widest text-[var(--color-text-muted)] uppercase">
-                {formatDate(milestone.date)}
+                {milestone.dateLabel}
               </p>
               <h3 className="mt-2 font-display text-xl font-semibold text-[var(--color-text)]">
                 {milestone.title}

@@ -43,15 +43,6 @@ export default function AwardBadges() {
                 <h3 className="font-display text-lg font-bold text-[var(--color-text)]">
                   {award.title}
                 </h3>
-                <p className="text-sm text-[var(--color-text-muted)]">
-                  {award.issuer}
-                </p>
-                <span
-                  className="rounded-full px-3 py-1 text-xs font-bold"
-                  style={{ background: `color-mix(in srgb, ${color.bg} 20%, transparent)`, color: color.bg }}
-                >
-                  {award.year}
-                </span>
               </div>
             );
           })}

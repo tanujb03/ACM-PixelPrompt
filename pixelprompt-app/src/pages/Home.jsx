@@ -1,13 +1,9 @@
 import Hero from "../components/home/Hero";
 import AwardsTicker from "../components/home/AwardsTicker";
-import WaveDivider from "../components/shared/WaveDivider";
-import AboutTeaser from "../components/home/AboutTeaser";
 import WhatWeDoTeaser from "../components/home/WhatWeDoTeaser";
-import TrustSection from "../components/home/TrustSection";
-import EventsTeaser from "../components/home/EventsTeaser";
-import StatsStrip from "../components/home/StatsStrip";
+import EventTreePlaceholder from "../components/home/EventTreePlaceholder";
+import TeamGlobePlaceholder from "../components/home/TeamGlobePlaceholder";
 import FinalCta from "../components/home/FinalCta";
-import { achievements } from "../data/mockData";
 
 export default function Home() {
   return (
@@ -18,28 +14,16 @@ export default function Home() {
       {/* 2. Awards marquee ticker */}
       <AwardsTicker />
 
-      {/* 3. Transition: dark → lavender */}
-      <WaveDivider variant="dark-to-light" />
-
-      {/* 4. About teaser — light lavender section */}
-      <AboutTeaser />
-
-      {/* 5. Transition: lavender → dark */}
-      <WaveDivider variant="light-to-dark" />
-
-      {/* 6. Services / What We Do — dark navy, 3 large colored cards */}
+      {/* 3. What We Do — 4 solid-color cards */}
       <WhatWeDoTeaser />
 
-      {/* 7. Trust statement */}
-      <TrustSection />
+      {/* 4. Event Tree — 3D placeholder */}
+      <EventTreePlaceholder />
 
-      {/* 8. Stats strip */}
-      <StatsStrip stats={achievements.stats} />
+      {/* 5. Team Globe — 3D placeholder */}
+      <TeamGlobePlaceholder />
 
-      {/* 9. Events teaser */}
-      <EventsTeaser />
-
-      {/* 10. Final CTA */}
+      {/* 6. Join CTA band */}
       <FinalCta />
     </>
   );

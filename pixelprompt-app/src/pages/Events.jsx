@@ -1,6 +1,5 @@
 import EventSpotlight from "../components/events/EventSpotlight";
-import EventsFilterList from "../components/events/EventsFilterList";
-import PastEventGallery from "../components/events/PastEventGallery";
+import EventList from "../components/events/EventList";
 import FootfallStats from "../components/events/FootfallStats";
 import FloatingShape from "../components/shared/FloatingShape";
 import SplitTextReveal from "../components/shared/SplitTextReveal";
@@ -11,20 +10,18 @@ export default function Events() {
     <div className="relative overflow-hidden">
       {/* Ambient background shapes */}
       <FloatingShape
-        type="torus"
+        shape="decagon"
         color="var(--color-pink)"
-        size="h-80 w-80"
+        size={200}
         className="-top-20 -right-20 opacity-20"
-        blur="blur-[90px]"
-        speed={15}
+        rotateSpeed="15s"
       />
       <FloatingShape
-        type="sphere"
+        shape="circle"
         color="var(--color-lime)"
-        size="h-96 w-96"
+        size={220}
         className="top-1/3 -left-32 opacity-15"
-        blur="blur-[110px]"
-        speed={18}
+        rotateSpeed="18s"
       />
 
       {/* Hero Header */}
@@ -36,25 +33,24 @@ export default function Events() {
 
         <div className="mt-6 flex justify-center">
           <SplitTextReveal
-            text="Events & Gatherings."
+            text="Events & Activities"
             as="h1"
             className="font-display text-4xl font-extrabold tracking-tight text-[var(--color-text)] sm:text-6xl md:text-7xl"
           />
         </div>
 
         <p className="mx-auto mt-6 max-w-xl text-base text-[var(--color-text-muted)] sm:text-lg">
-          Workshops, 48-hour hackathons, tech talks, and open-source sprints — where ideas turn into reality.
+          Workshops, hackathons, talks — filter by what you're looking for.
         </p>
       </section>
 
       <EventSpotlight />
-      <WaveDivider fillBottom="rgba(211,197,246,0.03)" />
-      <EventsFilterList />
-      <WaveDivider fillBottom="rgba(180,240,66,0.03)" />
-      <PastEventGallery />
-      <WaveDivider fillBottom="rgba(247,37,133,0.03)" />
+      <WaveDivider variant="dark-to-light" />
+      <div className="section-lavender">
+        <EventList />
+      </div>
+      <WaveDivider variant="light-to-dark" />
       <FootfallStats />
     </div>
   );
 }
-

@@ -5,17 +5,11 @@ export default function FAQAccordion() {
   const [openId, setOpenId] = useState(contact.faq[0]?.id ?? null);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div id="faq" className="flex flex-col gap-4 scroll-mt-24">
       <div className="mb-4 text-center">
-        <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold tracking-wider text-[var(--color-accent)] uppercase">
-          Got Questions?
-        </div>
-        <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl">
-          Frequently Asked Questions
+        <h2 className="font-display text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl">
+          {contact.faqHeading}
         </h2>
-        <p className="mt-2 text-sm text-[var(--color-text-muted)]">
-          Everything you need to know about joining ACM Nova Chapter.
-        </p>
       </div>
 
       <div className="mt-4 flex flex-col gap-3">
