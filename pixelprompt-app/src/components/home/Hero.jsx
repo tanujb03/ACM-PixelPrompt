@@ -4,9 +4,32 @@ import FloatingShape from "../shared/FloatingShape";
 import MagneticButton from "../shared/MagneticButton";
 import { hero } from "../../data/mockData";
 
+// A small network graph — nodes connected by edges, echoing "computing
+// minds come together" instead of a decorative squiggle with no meaning.
+// Coordinates live in a 0–560 x 0–560 box so it stays fully contained
+// within its wrapper at any viewport width.
+const NETWORK_NODES = [
+  { id: "n1", x: 60, y: 90 },
+  { id: "n2", x: 220, y: 40 },
+  { id: "n3", x: 380, y: 100 },
+  { id: "n4", x: 500, y: 60 },
+  { id: "n5", x: 140, y: 220 },
+  { id: "n6", x: 320, y: 260 },
+  { id: "n7", x: 470, y: 230 },
+  { id: "n8", x: 40, y: 360 },
+  { id: "n9", x: 240, y: 400 },
+  { id: "n10", x: 420, y: 400 },
+];
+const NETWORK_EDGES = [
+  ["n1", "n2"], ["n2", "n3"], ["n3", "n4"], ["n2", "n5"], ["n5", "n6"],
+  ["n6", "n3"], ["n6", "n7"], ["n3", "n7"], ["n5", "n8"], ["n5", "n9"],
+  ["n9", "n6"], ["n6", "n10"], ["n7", "n10"], ["n9", "n10"],
+];
+const nodeById = Object.fromEntries(NETWORK_NODES.map((n) => [n.id, n]));
+
 export default function Hero() {
   const ref = useRef(null);
-  const lineRef = useRef(null);
+  const networkRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -33,22 +56,30 @@ export default function Hero() {
           "-=0.6"
         );
 
-      // SVG ellipse line draw
-      if (lineRef.current) {
-        const path = lineRef.current.querySelector(".draw-path");
-        if (path) {
-          const length = path.getTotalLength();
-          gsap.set(path, {
-            strokeDasharray: length,
-            strokeDashoffset: length,
-          });
-          gsap.to(path, {
-            strokeDashoffset: 0,
-            duration: 3,
-            delay: 0.8,
-            ease: "power2.inOut",
-          });
-        }
+      // Network edges draw in, nodes pop in after
+      if (networkRef.current) {
+        const edges = networkRef.current.querySelectorAll(".network-edge");
+        const nodes = networkRef.current.querySelectorAll(".network-node");
+        edges.forEach((edge) => {
+          const length = edge.getTotalLength();
+          gsap.set(edge, { strokeDasharray: length, strokeDashoffset: length });
+        });
+        gsap.to(edges, {
+          strokeDashoffset: 0,
+          duration: 1.4,
+          stagger: 0.05,
+          delay: 0.6,
+          ease: "power2.inOut",
+        });
+        gsap.from(nodes, {
+          scale: 0,
+          opacity: 0,
+          duration: 0.5,
+          stagger: 0.04,
+          delay: 0.5,
+          ease: "back.out(2)",
+          transformOrigin: "center",
+        });
       }
     }, ref);
 
@@ -66,42 +97,42 @@ export default function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_70%_60%,_rgba(200,230,46,0.04),_transparent_50%)]" />
       </div>
 
-      {/* SVG elliptical curve threading through the text */}
-      <div ref={lineRef} className="pointer-events-none absolute inset-0 z-[3]">
-        <svg
-          viewBox="0 0 1440 800"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="absolute inset-0 h-full w-full"
-          preserveAspectRatio="none"
-          style={{ overflow: "visible" }}
-        >
-          <path
-            className="draw-path"
-            d="M-50,350 C200,100 400,500 720,150 C1000,-100 1100,600 1200,300 C1300,100 1350,500 1500,350"
-            stroke="var(--color-lime)"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            fill="none"
-          />
-          {/* Small circles at curve points */}
-          <circle cx="200" cy="260" r="5" fill="none" stroke="var(--color-lime)" strokeWidth="1.5" />
-          <circle cx="720" cy="150" r="5" fill="none" stroke="var(--color-lime)" strokeWidth="1.5" />
-          <circle cx="420" cy="380" r="5" fill="none" stroke="var(--color-lime)" strokeWidth="1.5" />
-          <circle cx="1000" cy="280" r="5" fill="none" stroke="var(--color-lime)" strokeWidth="1.5" />
-          <circle cx="1200" cy="300" r="5" fill="none" stroke="var(--color-lime)" strokeWidth="1.5" />
-          {/* Elliptical loop */}
-          <ellipse
-            cx="950"
-            cy="250"
-            rx="120"
-            ry="80"
-            fill="none"
-            stroke="var(--color-lime)"
-            strokeWidth="2.5"
-            className="draw-path"
-            transform="rotate(-15 950 250)"
-          />
+      {/* Network graph — small nodes connected by edges, contained to the
+          right-hand decorative zone. Stands in for "computing minds
+          come together" instead of a decorative line with no meaning. */}
+      <div
+        ref={networkRef}
+        className="pointer-events-none absolute -right-10 top-1/2 z-[2] hidden h-[560px] w-[560px] -translate-y-1/2 opacity-40 lg:block"
+      >
+        <svg viewBox="0 0 560 560" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-full w-full">
+          {NETWORK_EDGES.map(([a, b]) => {
+            const from = nodeById[a];
+            const to = nodeById[b];
+            return (
+              <line
+                key={`${a}-${b}`}
+                className="network-edge"
+                x1={from.x}
+                y1={from.y}
+                x2={to.x}
+                y2={to.y}
+                stroke="var(--color-lime)"
+                strokeWidth="1.5"
+              />
+            );
+          })}
+          {NETWORK_NODES.map((n) => (
+            <circle
+              key={n.id}
+              className="network-node"
+              cx={n.x}
+              cy={n.y}
+              r="6"
+              fill="var(--color-bg)"
+              stroke="var(--color-lime)"
+              strokeWidth="2"
+            />
+          ))}
         </svg>
       </div>
 

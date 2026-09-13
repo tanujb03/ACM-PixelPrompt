@@ -7,6 +7,7 @@ import Timeline from "../components/about/Timeline";
 import VerticalsGrid from "../components/about/VerticalsGrid";
 import FacultyAndMentors from "../components/about/FacultyAndMentors";
 import WhyJoinList from "../components/about/WhyJoinList";
+import chapterGroupPhoto from "../assets/images/about/chapter-group-photo.png";
 
 export default function About() {
   return (
@@ -29,12 +30,7 @@ export default function About() {
 
       {/* Hero Header */}
       <section className="relative z-10 px-6 pt-32 pb-12 text-center sm:pt-40 sm:pb-16">
-        <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-semibold tracking-widest text-[var(--color-accent)] uppercase backdrop-blur-md">
-          <span className="h-2 w-2 rounded-full bg-[var(--color-accent)] animate-pulse" />
-          Who We Are
-        </div>
-
-        <div className="mt-6 flex justify-center">
+        <div className="flex justify-center">
           <SplitTextReveal
             text={about.pageHeading}
             as="h1"
@@ -50,6 +46,16 @@ export default function About() {
           {about.missionBody.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
+        </Reveal>
+
+        <Reveal as="div" className="relative mx-auto mt-12 max-w-4xl overflow-hidden rounded-3xl">
+          <img
+            src={chapterGroupPhoto}
+            alt="ACM MITS chapter members at a workshop"
+            className="h-56 w-full object-cover sm:h-72"
+            loading="lazy"
+          />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-transparent to-transparent" />
         </Reveal>
       </section>
 

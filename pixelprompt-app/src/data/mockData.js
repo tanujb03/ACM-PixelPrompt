@@ -299,10 +299,12 @@ export const achievements = {
   hallOfFameHeading: "Hall of Fame",
   hallOfFameSubheading: "Founding members and contributors who built what we're standing on.",
   // Mocked — no real founding-member data exists yet, per the content doc.
+  // Photos are placeholder avatars (pravatar), same convention used for
+  // team officers/mentors elsewhere on the site.
   hallOfFame: [
-    { id: "hof-1", name: "Aditya Rathore", role: "Founding President, 2019" },
-    { id: "hof-2", name: "Meera Shenoy", role: "Founding Vice President, 2019" },
-    { id: "hof-3", name: "Kabir Desai", role: "First Flagship-Event Organizer, 2021" },
+    { id: "hof-1", name: "Aditya Rathore", role: "Founding President, 2019", photo: "https://i.pravatar.cc/300?img=33" },
+    { id: "hof-2", name: "Meera Shenoy", role: "Founding Vice President, 2019", photo: "https://i.pravatar.cc/300?img=45" },
+    { id: "hof-3", name: "Kabir Desai", role: "First Flagship-Event Organizer, 2021", photo: "https://i.pravatar.cc/300?img=52" },
   ],
   awards: [
     { id: "badge-1", title: "Emerging Chapter — MP Region, 2026" },

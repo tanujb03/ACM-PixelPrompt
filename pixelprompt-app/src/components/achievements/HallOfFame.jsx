@@ -2,15 +2,6 @@ import { achievements } from "../../data/mockData";
 import Reveal from "../shared/Reveal";
 import SplitTextReveal from "../shared/SplitTextReveal";
 
-function initials(name) {
-  return name
-    .split(" ")
-    .map((part) => part[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
-}
-
 export default function HallOfFame() {
   return (
     <section className="relative border-y border-[var(--color-border)] bg-[var(--color-surface)]/30 px-6 py-20 sm:py-28">
@@ -31,9 +22,14 @@ export default function HallOfFame() {
         >
           {achievements.hallOfFame.map((person) => (
             <div key={person.id} className="glow-card group flex flex-col items-center gap-4 p-6 text-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--color-surface-2)] font-display text-lg font-bold text-[var(--color-lime)] transition-transform duration-500 group-hover:scale-110">
-                {initials(person.name)}
-              </div>
+              <img
+                src={person.photo}
+                alt={person.name}
+                width={72}
+                height={72}
+                className="h-[72px] w-[72px] rounded-full object-cover ring-2 ring-[var(--color-lime)]/30 transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+              />
               <div>
                 <h3 className="font-display text-base font-semibold text-[var(--color-text)]">
                   {person.name}

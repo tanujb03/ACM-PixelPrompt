@@ -28,12 +28,7 @@ export default function Achievements() {
 
       {/* Hero Header */}
       <section className="relative z-10 px-6 pt-32 pb-12 text-center sm:pt-40 sm:pb-16">
-        <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-semibold tracking-widest text-[var(--color-lime)] uppercase backdrop-blur-md">
-          <span className="h-2 w-2 rounded-full bg-[var(--color-lime)] animate-pulse" />
-          Track Record & Legacy
-        </div>
-
-        <div className="mt-6 flex justify-center">
+        <div className="flex justify-center">
           <SplitTextReveal
             text={achievements.pageHeading}
             as="h1"

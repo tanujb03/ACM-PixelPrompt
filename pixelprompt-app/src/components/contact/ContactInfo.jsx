@@ -17,12 +17,6 @@ export default function ContactInfo() {
       <div className="pointer-events-none absolute -top-20 -right-20 h-44 w-44 rounded-full bg-[var(--color-accent)]/15 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-20 -left-20 h-44 w-44 rounded-full bg-[var(--color-lime)]/10 blur-3xl" />
 
-      {/* Badge */}
-      <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold tracking-wider text-[var(--color-lime)] uppercase">
-        <span className="h-2 w-2 rounded-full bg-[var(--color-lime)] animate-pulse" />
-        Connect with us
-      </div>
-
       <h2 className="font-display text-2xl font-bold tracking-tight text-[var(--color-text)] sm:text-3xl">
         Let&apos;s build the future together.
       </h2>
