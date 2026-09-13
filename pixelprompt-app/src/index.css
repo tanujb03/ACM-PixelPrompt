@@ -153,6 +153,22 @@ body {
 }
 
 /* ========================================================================
+   Zoom Section (cinematic section-approach on scroll)
+   ======================================================================== */
+
+.zoom-section-inner {
+  will-change: transform, opacity, border-radius;
+  transform-origin: center top;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* While a section is mid-zoom, clip its overflowing rounded corners */
+.zoom-section-inner[style*="border-radius"] {
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
+}
+
+/* ========================================================================
    View Transitions
    ======================================================================== */
 

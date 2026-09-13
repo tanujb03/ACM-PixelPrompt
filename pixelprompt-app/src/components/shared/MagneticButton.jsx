@@ -1,8 +1,9 @@
 import { useRef, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { useActiveSection } from "../../context/ActiveSectionContext";
 
-// A button (or Link) that magnetically pulls toward the cursor on hover
+// A button that magnetically pulls toward the cursor on hover
 // and shows a bubble-expand effect from the cursor position.
+// Supports scrolling to section IDs (for single-page nav) or external hrefs.
 export default function MagneticButton({
   children,
   to,
@@ -14,6 +15,7 @@ export default function MagneticButton({
   ...rest
 }) {
   const wrapRef = useRef(null);
+  const { scrollToSection } = useActiveSection();
 
   const handleMouseMove = useCallback(
     (e) => {
@@ -39,23 +41,23 @@ export default function MagneticButton({
     if (wrap) wrap.style.transform = "translate(0, 0)";
   }, []);
 
-  const inner = (
+  const handleScrollClick = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (to) scrollToSection(to);
+      if (onClick) onClick(e);
+    },
+    [to, scrollToSection, onClick]
+  );
+
+  return (
     <div
       ref={wrapRef}
       className="magnetic-wrap"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {to ? (
-        <Link
-          to={to}
-          viewTransition
-          className={`btn-bubble ${className}`}
-          {...rest}
-        >
-          {children}
-        </Link>
-      ) : href ? (
+      {href ? (
         <a
           href={href}
           className={`btn-bubble ${className}`}
@@ -63,6 +65,15 @@ export default function MagneticButton({
         >
           {children}
         </a>
+      ) : to ? (
+        <button
+          type="button"
+          onClick={handleScrollClick}
+          className={`btn-bubble ${className}`}
+          {...rest}
+        >
+          {children}
+        </button>
       ) : (
         <button
           type={type}
@@ -75,6 +86,4 @@ export default function MagneticButton({
       )}
     </div>
   );
-
-  return inner;
 }

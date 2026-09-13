@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
 import { site, footer } from "../../data/mockData";
 import SocialLinks from "../shared/SocialLinks";
+import { useActiveSection } from "../../context/ActiveSectionContext";
 
 export default function Footer() {
+  const { scrollToSection } = useActiveSection();
+
   return (
     <footer className="relative overflow-hidden bg-[var(--color-bg-deep)]">
       {/* ── Column links ── */}
@@ -10,9 +12,8 @@ export default function Footer() {
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-10 sm:grid-cols-4">
           {/* Logo & affiliation */}
           <div className="col-span-2 sm:col-span-1">
-            <Link
-              to="/"
-              viewTransition
+            <button
+              onClick={() => scrollToSection("home")}
               className="inline-flex items-center gap-2 font-display text-lg font-bold tracking-tight text-[var(--color-text)]"
             >
               <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
@@ -20,7 +21,7 @@ export default function Footer() {
                 <path d="M8 22L16 8L24 22H8Z" fill="white" />
               </svg>
               {site.shortName}
-            </Link>
+            </button>
             <p className="mt-3 max-w-xs text-xs leading-relaxed text-[var(--color-text-muted)]">
               {site.tagline}
             </p>
@@ -34,13 +35,12 @@ export default function Footer() {
               <ul className="mt-4 flex flex-col gap-2.5">
                 {col.links.map((link) => (
                   <li key={link.label}>
-                    <Link
-                      to={link.to}
-                      viewTransition
+                    <button
+                      onClick={() => scrollToSection(link.to)}
                       className="animated-underline text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
                     >
                       {link.label}
-                    </Link>
+                    </button>
                   </li>
                 ))}
               </ul>

@@ -1,29 +1,43 @@
-import { Link } from "react-router-dom";
+import { useActiveSection, SECTIONS } from "../../context/ActiveSectionContext";
 
 export default function BottomBar() {
+  const { activeSection, scrollToSection } = useActiveSection();
+
+  // Find current and get display label
+  const currentLabel = SECTIONS.find((s) => s.id === activeSection)?.label || "Home";
+
+  // Find the next section for the right-side link
+  const currentIdx = SECTIONS.findIndex((s) => s.id === activeSection);
+  const nextSection = SECTIONS[(currentIdx + 1) % SECTIONS.length];
+
   return (
     <div className="bottom-bar hidden md:flex">
-      <Link to="/" viewTransition className="bottom-bar-section">
+      <button
+        onClick={() => scrollToSection("home")}
+        className="bottom-bar-section"
+      >
         <span className="bottom-bar-dot" />
         <span>
-          Open: <strong>Menu</strong>
+          Viewing: <strong>{currentLabel}</strong>
         </span>
-      </Link>
+      </button>
 
-      <Link
-        to="/contact"
-        viewTransition
+      <button
+        onClick={() => scrollToSection("contact")}
         className="bottom-bar-cta"
       >
         join the chapter
-      </Link>
+      </button>
 
-      <Link to="/events" viewTransition className="bottom-bar-section">
+      <button
+        onClick={() => scrollToSection(nextSection.id)}
+        className="bottom-bar-section"
+      >
         <span>
-          View: <strong>Events</strong>
+          Next: <strong>{nextSection.label}</strong>
         </span>
         <span className="bottom-bar-dot" />
-      </Link>
+      </button>
     </div>
   );
 }

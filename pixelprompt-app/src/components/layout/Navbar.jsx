@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { NavLink, Link } from "react-router-dom";
 import { site, nav } from "../../data/mockData";
 import MagneticButton from "../shared/MagneticButton";
+import { useActiveSection } from "../../context/ActiveSectionContext";
 import { gsap } from "../../lib/gsap";
 
 export default function Navbar() {
@@ -9,6 +9,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const mobileRef = useRef(null);
   const headerRef = useRef(null);
+  const { activeSection, scrollToSection } = useActiveSection();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -29,6 +30,11 @@ export default function Navbar() {
     }
   }, [isOpen]);
 
+  const handleNavClick = (sectionId) => {
+    scrollToSection(sectionId);
+    setIsOpen(false);
+  };
+
   return (
     <header
       ref={headerRef}
@@ -45,10 +51,8 @@ export default function Navbar() {
         }`}
       >
         {/* Logo */}
-        <Link
-          to="/"
-          viewTransition
-          onClick={() => setIsOpen(false)}
+        <button
+          onClick={() => handleNavClick("home")}
           className="flex items-center gap-2 pl-3 font-display text-lg font-bold tracking-tight text-[var(--color-text)]"
         >
           <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -56,41 +60,36 @@ export default function Navbar() {
             <path d="M8 22L16 8L24 22H8Z" fill="white" strokeLinejoin="round" />
           </svg>
           <span className="hidden sm:inline">{site.shortName}</span>
-        </Link>
+        </button>
 
         {/* Desktop nav links with roll-hover effect */}
         <div className="hidden items-center gap-1 md:flex">
-          {nav.links.map((link) => (
-            <NavLink
-              key={link.to}
-              to={link.to}
-              viewTransition
-              end={link.to === "/"}
-              className={({ isActive }) =>
-                `group relative rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+          {nav.links.map((link) => {
+            const isActive = activeSection === link.to;
+            return (
+              <button
+                key={link.to}
+                onClick={() => handleNavClick(link.to)}
+                className={`group relative rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                   isActive
                     ? "text-[var(--color-text)]"
                     : "text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
-                }`
-              }
-            >
-              {({ isActive }) => (
-                <>
-                  <span className="menu-roll">
-                    <span className="menu-roll-stack">
-                      <span className="menu-roll-line">{link.label}</span>
-                      <span className="menu-roll-line text-[var(--color-lime)]">
-                        {link.label}
-                      </span>
+                }`}
+              >
+                <span className="menu-roll">
+                  <span className="menu-roll-stack">
+                    <span className="menu-roll-line">{link.label}</span>
+                    <span className="menu-roll-line text-[var(--color-lime)]">
+                      {link.label}
                     </span>
                   </span>
-                  {isActive && (
-                    <span className="absolute bottom-0 left-1/2 h-0.5 w-4 -translate-x-1/2 rounded-full bg-[var(--color-accent)]" />
-                  )}
-                </>
-              )}
-            </NavLink>
-          ))}
+                </span>
+                {isActive && (
+                  <span className="absolute bottom-0 left-1/2 h-0.5 w-4 -translate-x-1/2 rounded-full bg-[var(--color-accent)] transition-all duration-300" />
+                )}
+              </button>
+            );
+          })}
         </div>
 
         {/* Desktop CTA */}
@@ -130,32 +129,28 @@ export default function Navbar() {
           ref={mobileRef}
           className="glass mt-2 flex flex-col gap-1 rounded-2xl p-4 md:hidden"
         >
-          {nav.links.map((link) => (
-            <NavLink
-              key={link.to}
-              to={link.to}
-              viewTransition
-              end={link.to === "/"}
-              onClick={() => setIsOpen(false)}
-              className={({ isActive }) =>
-                `mobile-nav-item rounded-xl px-4 py-3 text-sm font-medium transition ${
+          {nav.links.map((link) => {
+            const isActive = activeSection === link.to;
+            return (
+              <button
+                key={link.to}
+                onClick={() => handleNavClick(link.to)}
+                className={`mobile-nav-item rounded-xl px-4 py-3 text-left text-sm font-medium transition ${
                   isActive
                     ? "bg-[var(--color-surface-2)] text-[var(--color-text)]"
                     : "text-[var(--color-text-muted)] hover:bg-[var(--color-surface)] hover:text-[var(--color-text)]"
-                }`
-              }
-            >
-              {link.label}
-            </NavLink>
-          ))}
-          <Link
-            to={nav.cta.to}
-            viewTransition
-            onClick={() => setIsOpen(false)}
+                }`}
+              >
+                {link.label}
+              </button>
+            );
+          })}
+          <button
+            onClick={() => handleNavClick(nav.cta.to)}
             className="mobile-nav-item mt-2 rounded-full bg-[var(--color-accent)] px-5 py-3 text-center text-sm font-semibold text-white transition hover:opacity-90"
           >
             {nav.cta.label}
-          </Link>
+          </button>
         </div>
       )}
     </header>

@@ -13,14 +13,14 @@ export const site = {
 
 export const nav = {
   links: [
-    { label: "Home", to: "/" },
-    { label: "About", to: "/about" },
-    { label: "Events", to: "/events" },
-    { label: "Team", to: "/team" },
-    { label: "Achievements", to: "/achievements" },
-    { label: "Contact", to: "/contact" },
+    { label: "Home", to: "home" },
+    { label: "About", to: "about" },
+    { label: "Events", to: "events" },
+    { label: "Team", to: "team" },
+    { label: "Achievements", to: "achievements" },
+    { label: "Contact", to: "contact" },
   ],
-  cta: { label: "Join Us", to: "/contact" },
+  cta: { label: "Join Us", to: "contact" },
 };
 
 // Only real handles we have. No LinkedIn — don't reference it anywhere.
@@ -36,19 +36,19 @@ export const footer = {
       id: "chapter",
       title: "Chapter",
       links: [
-        { label: "About", to: "/about" },
-        { label: "Events", to: "/events" },
-        { label: "Team", to: "/team" },
-        { label: "Achievements", to: "/achievements" },
+        { label: "About", to: "about" },
+        { label: "Events", to: "events" },
+        { label: "Team", to: "team" },
+        { label: "Achievements", to: "achievements" },
       ],
     },
     {
       id: "get-involved",
       title: "Get Involved",
       links: [
-        { label: "Join Us", to: "/contact" },
-        { label: "Contact", to: "/contact" },
-        { label: "FAQ", to: "/contact#faq" },
+        { label: "Join Us", to: "contact" },
+        { label: "Contact", to: "contact" },
+        { label: "FAQ", to: "contact" },
       ],
     },
   ],
@@ -62,8 +62,8 @@ export const hero = {
   headline: "Where Computing Minds Come Together.",
   subhead:
     "The official ACM Student Chapter of Madhav Institute of Technology and Science, Gwalior — where students learn, build, and compete beyond the classroom.",
-  primaryCta: { label: "Become a Member", to: "/contact" },
-  secondaryCta: { label: "See Upcoming Events", to: "/events" },
+  primaryCta: { label: "Become a Member", to: "contact" },
+  secondaryCta: { label: "See Upcoming Events", to: "events" },
 };
 
 // Marquee/ticker banner, repeated on loop.
@@ -122,7 +122,7 @@ export const teamGlobe = {
 export const finalCta = {
   headline: "Ready to build something?",
   subhead: "Membership is open all year. No prior experience required — just curiosity.",
-  cta: { label: "Join ACM MITS", to: "/contact" },
+  cta: { label: "Join ACM MITS", to: "contact" },
 };
 
 export const about = {

@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { finalCta } from "../../data/mockData";
 import Reveal from "../shared/Reveal";
 import MagneticButton from "../shared/MagneticButton";
