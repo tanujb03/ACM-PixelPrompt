@@ -1,16 +1,8 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { events, EVENT_TYPES } from "../../data/events";
 
-// Vite-resolved map of every image under src/assets/images/events, keyed by
-// filename — lets events.js reference images by bare filename instead of
-// each component needing its own import list.
-const imageModules = import.meta.glob("../../assets/images/events/*", {
-  eager: true,
-  import: "default",
-});
-const imagesByFilename = Object.fromEntries(
-  Object.entries(imageModules).map(([path, url]) => [path.split("/").pop(), url])
-);
+const filters = ["All", ...EVENT_TYPES];
 
 const rowPalette = [
   { bg: "var(--color-lime)", text: "#150734", btnBg: "#150734", btnFg: "var(--color-lime)" },
@@ -21,11 +13,14 @@ const rowPalette = [
   { bg: "var(--color-purple)", text: "#ffffff", btnBg: "#150734", btnFg: "var(--color-purple)" },
 ];
 
-const filters = ["All", ...EVENT_TYPES];
+// Same color index every event always uses, regardless of which filter is
+// active, so a row's color matches the hero color on its detail page.
+const paletteByEventId = Object.fromEntries(
+  events.map((e, i) => [e.id, rowPalette[i % rowPalette.length]])
+);
 
 export default function EventList() {
   const [activeFilter, setActiveFilter] = useState("All");
-  const [expandedId, setExpandedId] = useState(null);
 
   const filtered =
     activeFilter === "All" ? events : events.filter((e) => e.type === activeFilter);
@@ -50,62 +45,35 @@ export default function EventList() {
       </div>
 
       <div className="flex w-full flex-col">
-        {filtered.map((event, i) => {
-          const palette = rowPalette[i % rowPalette.length];
-          const isOpen = expandedId === event.id;
-          const imageSrc = event.image ? imagesByFilename[event.image] : null;
+        {filtered.map((event) => {
+          const palette = paletteByEventId[event.id];
 
           return (
-            <div key={event.id} style={{ background: palette.bg, color: palette.text }}>
-              <button
-                type="button"
-                onClick={() => setExpandedId(isOpen ? null : event.id)}
-                className="flex w-full items-center gap-4 px-6 py-6 text-left sm:px-12"
+            <Link
+              key={event.id}
+              to={`/events/${event.id}`}
+              viewTransition
+              className="group flex w-full items-center gap-4 px-6 py-6 text-left transition-[padding] duration-300 hover:py-8 sm:px-12"
+              style={{ background: palette.bg, color: palette.text }}
+            >
+              <span className="font-display text-lg font-bold sm:text-2xl">
+                {event.shortName || event.name}
+              </span>
+              <span
+                className="ml-auto hidden shrink-0 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wide sm:inline-block"
+                style={{ background: "rgba(0,0,0,0.12)" }}
               >
-                <span className="font-display text-lg font-bold sm:text-2xl">
-                  {event.shortName || event.name}
-                </span>
-                <span
-                  className="ml-auto hidden shrink-0 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wide sm:inline-block"
-                  style={{ background: "rgba(0,0,0,0.12)" }}
-                >
-                  {event.type}
-                </span>
-                <span
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-transform duration-300"
-                  style={{
-                    background: palette.btnBg,
-                    color: palette.btnFg,
-                    transform: isOpen ? "rotate(135deg)" : "none",
-                  }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-              </button>
-
-              {isOpen && (
-                <div className="flex flex-col gap-4 px-6 pb-8 sm:flex-row sm:px-12">
-                  {imageSrc && (
-                    <img
-                      src={imageSrc}
-                      alt={event.name}
-                      className="w-full rounded-xl object-cover sm:w-56"
-                      loading="lazy"
-                    />
-                  )}
-                  <div className="flex flex-col gap-2">
-                    <p className="text-xs font-semibold uppercase tracking-wide opacity-70">
-                      {event.date}
-                    </p>
-                    <p className="max-w-xl text-sm leading-relaxed opacity-90">
-                      {event.description}
-                    </p>
-                  </div>
-                </div>
-              )}
-            </div>
+                {event.type}
+              </span>
+              <span
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-transform duration-300 group-hover:rotate-45"
+                style={{ background: palette.btnBg, color: palette.btnFg }}
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+            </Link>
           );
         })}
         {filtered.length === 0 && (

@@ -7,6 +7,7 @@ export default function SplitTextReveal({
   text,
   as: Tag = "h2",
   className = "",
+  style,
   splitBy = "word", // "word" or "char"
   delay = 0,
   duration = 0.7,
@@ -72,7 +73,7 @@ export default function SplitTextReveal({
         ));
 
   return (
-    <Tag ref={ref} className={className} style={{ perspective: "600px" }}>
+    <Tag ref={ref} className={className} style={{ perspective: "600px", ...style }}>
       {items}
     </Tag>
   );

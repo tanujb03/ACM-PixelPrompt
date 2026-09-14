@@ -1,8 +1,6 @@
-import OfficerGrid from "../components/team/OfficerGrid";
-import FacultyMentorCards from "../components/team/FacultyMentorCards";
+import TeamFieldSequence from "../components/team/TeamFieldSequence";
 import FloatingShape from "../components/shared/FloatingShape";
 import SplitTextReveal from "../components/shared/SplitTextReveal";
-import WaveDivider from "../components/shared/WaveDivider";
 
 export default function Team() {
   return (
@@ -40,10 +38,7 @@ export default function Team() {
         </p>
       </section>
 
-      <OfficerGrid />
-      <WaveDivider fillBottom="rgba(211,197,246,0.03)" />
-      <FacultyMentorCards />
+      <TeamFieldSequence />
     </div>
   );
 }
-
