@@ -23,14 +23,14 @@ const THEME = {
   },
 };
 
-export default function PlayerCard({ member, photoSrc, theme = "gold", size = 96, onSelect }) {
+export default function PlayerCard({ member, photoSrc, theme = "gold", size = 96, nameFontSize = "10px", roleFontSize = "8px", onSelect }) {
   const palette = THEME[theme];
 
   return (
     <button
       type="button"
       onClick={() => onSelect(member)}
-      className="group flex flex-col items-center rounded-2xl p-[3px] transition-transform duration-300 hover:-translate-y-1 hover:scale-[1.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
+      className="group flex flex-col items-center overflow-hidden rounded-2xl p-[3px] transition-transform duration-300 hover:-translate-y-1 hover:scale-[1.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
       style={{ width: size, background: palette.frame, boxShadow: palette.glow }}
     >
       <span className="relative block w-full overflow-hidden rounded-[0.85rem]" style={{ aspectRatio: "1.05 / 1" }}>
@@ -47,14 +47,14 @@ export default function PlayerCard({ member, photoSrc, theme = "gold", size = 96
       </span>
 
       <span
-        className="-mt-2 w-[94%] rounded-md px-1.5 py-1 text-center text-[10px] leading-[1.15] font-bold tracking-tight uppercase sm:text-[14px]"
-        style={{ background: palette.nameBg, color: palette.nameText }}
+        className="-mt-2 w-[94%] rounded-md px-1.5 py-1 text-center leading-[1.15] font-bold tracking-tight uppercase break-words"
+        style={{ background: palette.nameBg, color: palette.nameText, fontSize: nameFontSize }}
       >
         {member.name}
       </span>
       <span
-        className="mt-1 w-[90%] rounded-md px-1.5 py-1 text-center text-[8px] leading-[1.15] font-semibold tracking-wide uppercase sm:text-[11px]"
-        style={{ background: palette.roleBg, color: palette.roleText }}
+        className="mt-1 w-[90%] rounded-md px-1.5 py-1 text-center leading-[1.15] font-semibold tracking-wide uppercase break-words"
+        style={{ background: palette.roleBg, color: palette.roleText, fontSize: roleFontSize }}
       >
         {member.role}
       </span>
