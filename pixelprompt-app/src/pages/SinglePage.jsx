@@ -6,7 +6,7 @@ import { useActiveSection } from "../context/ActiveSectionContext";
 import Hero from "../components/home/Hero";
 import AwardsTicker from "../components/home/AwardsTicker";
 import WhatWeDoTeaser from "../components/home/WhatWeDoTeaser";
-import EventTreePlaceholder from "../components/home/EventTreePlaceholder";
+import EventTree3D from "../components/home/EventTree3D";
 import TeamGlobePlaceholder from "../components/home/TeamGlobePlaceholder";
 import FinalCta from "../components/home/FinalCta";
 
@@ -26,8 +26,7 @@ import EventList from "../components/events/EventList";
 import FootfallStats from "../components/events/FootfallStats";
 
 // Team sections
-import OfficerGrid from "../components/team/OfficerGrid";
-import FacultyMentorCards from "../components/team/FacultyMentorCards";
+import TeamFieldSequence from "../components/team/TeamFieldSequence";
 
 // Achievements sections
 import { achievements } from "../data/mockData";
@@ -62,10 +61,10 @@ function ZoomSection({ id, bg = "dark", children, className = "" }) {
     return () => registerSection(id, null);
   }, [id, registerSection]);
 
-  // Zoom-in on scroll enter
+  // Zoom-in on scroll enter (skip hero and pinned team section for smooth pin scrolling)
   useEffect(() => {
     const inner = innerRef.current;
-    if (!inner || id === "home") return; // Skip hero — it's already visible
+    if (!inner || id === "home" || id === "team") return;
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -100,15 +99,21 @@ function ZoomSection({ id, bg = "dark", children, className = "" }) {
     deep: "bg-[var(--color-bg-deep)]",
   };
 
+  const isPinned = id === "team";
+
   return (
     <section ref={sectionRef} id={id} className="relative">
       <div
         ref={innerRef}
-        className={`relative overflow-hidden ${bgClasses[bg] || ""} ${className}`}
-        style={{
-          willChange: "transform, opacity, border-radius",
-          transformOrigin: "center top",
-        }}
+        className={`relative ${isPinned ? "" : "overflow-hidden"} ${bgClasses[bg] || ""} ${className}`}
+        style={
+          isPinned
+            ? {}
+            : {
+                willChange: "transform, opacity, border-radius",
+                transformOrigin: "center top",
+              }
+        }
       >
         {children}
       </div>
@@ -151,6 +156,16 @@ function SectionHeading({ title, subtitle, dark = true }) {
    THE PAGE
    ───────────────────────────────────────────────────────────────── */
 export default function SinglePage() {
+  useEffect(() => {
+    const hash = window.location.hash?.replace("#", "");
+    if (hash) {
+      setTimeout(() => {
+        const el = document.getElementById(hash);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 350);
+    }
+  }, []);
+
   return (
     <>
       {/* ═══════════════════════════════════════════════════════
@@ -165,9 +180,7 @@ export default function SinglePage() {
 
         <WhatWeDoTeaser />
 
-        <ScrollSlide variant="zoom-in" duration={1}>
-          <EventTreePlaceholder />
-        </ScrollSlide>
+        <EventTree3D />
 
         <ScrollSlide variant="zoom-in" duration={1} delay={0.2}>
           <TeamGlobePlaceholder />
@@ -268,24 +281,16 @@ export default function SinglePage() {
       <WaveDivider variant="dark-to-light" />
 
       {/* ═══════════════════════════════════════════════════════
-          SECTION 4: TEAM — Lavender (zooms in)
+          SECTION 4: TEAM — Football Field Sequence
          ═══════════════════════════════════════════════════════ */}
-      <ZoomSection id="team" bg="lavender">
+      <ZoomSection id="team" bg="dark">
         <SectionHeading
-          title="Leadership & Minds."
-          subtitle="The passionate developers, designers, and faculty researchers powering the chapter day in and day out."
-          dark={false}
+          title="The Minds Behind ACM MITS"
+          subtitle="Meet the starting lineup — developers, designers, and researchers powering the chapter."
+          dark={true}
         />
 
-        {/* Team cards zoom in */}
-        <ScrollSlide variant="zoom-in" duration={1}>
-          <OfficerGrid />
-        </ScrollSlide>
-
-        {/* Faculty slides from left */}
-        <ScrollSlide variant="slide-left" distance={100} duration={1}>
-          <FacultyMentorCards />
-        </ScrollSlide>
+        <TeamFieldSequence />
       </ZoomSection>
 
       {/* Wave: Lavender → Dark */}

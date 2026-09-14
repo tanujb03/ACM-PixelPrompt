@@ -44,7 +44,7 @@ export default function EventDetail() {
 
         <div className="relative z-10 mx-auto max-w-4xl">
           <Link
-            to="/events"
+            to="/#events"
             viewTransition
             className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest"
             style={{ color: colors.text }}
