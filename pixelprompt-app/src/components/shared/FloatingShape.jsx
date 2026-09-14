@@ -32,23 +32,29 @@ const shapes = {
 export default function FloatingShape({
   shape = "star",
   color = "#c2ec40",
-  size = 80,
+  size,
+  width,
+  height,
   label,
   num,
   className = "",
   rotateSpeed = "20s",
   reverse = false,
   floatDelay = 0,
+  textColor = "#fff",
   style = {},
 }) {
+  const finalWidth = width || size || 80;
+  const finalHeight = height || size || 80;
+  
   const ShapeSvg = shapes[shape];
 
   return (
     <div
       className={`hero-shape ${className}`}
       style={{
-        width: size,
-        height: size,
+        width: finalWidth,
+        height: finalHeight,
         animation: `float ${4 + floatDelay}s ease-in-out ${floatDelay}s infinite`,
         ...style,
       }}
@@ -73,7 +79,7 @@ export default function FloatingShape({
             alignItems: "center",
             justifyContent: "center",
             animation: `${reverse ? "rotate-slow" : "rotate-slow-reverse"} ${rotateSpeed} linear infinite`,
-            color: "#fff",
+            color: textColor,
           }}
         >
           {num && <span className="hero-shape-num">{num}</span>}

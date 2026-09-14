@@ -15,7 +15,7 @@ const NETWORK_NODES = [
   { id: "n4", x: 500, y: 60 },
   { id: "n5", x: 140, y: 220 },
   { id: "n6", x: 320, y: 260 },
-  { id: "n7", x: 470, y: 230 },
+  { id: "n7", x: 400, y: 230 }, // Moved from 470 to 400
   { id: "n8", x: 40, y: 360 },
   { id: "n9", x: 240, y: 400 },
   { id: "n10", x: 420, y: 400 },
@@ -97,14 +97,13 @@ export default function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_70%_60%,_rgba(200,230,46,0.04),_transparent_50%)]" />
       </div>
 
-      {/* Network graph — small nodes connected by edges, contained to the
-          right-hand decorative zone. Stands in for "computing minds
-          come together" instead of a decorative line with no meaning. */}
+      {/* Network graph & Shapes — combined to form the cube and connections */}
       <div
         ref={networkRef}
-        className="pointer-events-none absolute -right-10 top-1/2 z-[2] hidden h-[560px] w-[560px] -translate-y-1/2 opacity-40 lg:block"
+        className="pointer-events-none absolute right-[-2rem] top-1/2 z-[2] hidden h-[600px] w-[600px] -translate-y-1/2 lg:block"
       >
-        <svg viewBox="0 0 560 560" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-full w-full">
+        {/* The network lines connecting everything */}
+        <svg viewBox="0 0 560 560" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute inset-0 h-full w-full opacity-60">
           {NETWORK_EDGES.map(([a, b]) => {
             const from = nodeById[a];
             const to = nodeById[b];
@@ -121,86 +120,39 @@ export default function Hero() {
               />
             );
           })}
+          {/* Small default dots for remaining nodes */}
           {NETWORK_NODES.map((n) => (
             <circle
               key={n.id}
               className="network-node"
               cx={n.x}
               cy={n.y}
-              r="6"
+              r="4"
               fill="var(--color-bg)"
               stroke="var(--color-lime)"
-              strokeWidth="2"
+              strokeWidth="1.5"
             />
           ))}
         </svg>
-      </div>
 
-      {/* Floating decorative sticker shapes — clustered along the right
-          margin so they never collide with the hero text column on the left */}
-      <div className="pointer-events-none absolute inset-0 hidden lg:block">
-        <div className="hero-float" style={{ position: "absolute", top: "6%", right: "4%" }}>
-          <FloatingShape
-            shape="star"
-            color="#f72585"
-            size={95}
-            num="45+"
-            label="events hosted"
-            rotateSpeed="25s"
-          />
+        {/* The shapes, acting as big nodes in the cube layout */}
+        <div className="hero-float" style={{ position: "absolute", left: 60, top: 90, transform: "translate(-50%, -50%)" }}>
+          <FloatingShape shape="star" color="#f72585" width={110} height={110} num="45+" label="events hosted" rotateSpeed="25s" />
         </div>
-        <div className="hero-float" style={{ position: "absolute", top: "20%", right: "20%" }}>
-          <FloatingShape
-            shape="decagon"
-            color="#ea3323"
-            size={80}
-            label="3 hackathon wins"
-            rotateSpeed="18s"
-            reverse
-          />
+        <div className="hero-float" style={{ position: "absolute", left: 380, top: 100, transform: "translate(-50%, -50%)" }}>
+          <FloatingShape shape="decagon" color="#ea3323" width={110} height={110} label="3 hackathon wins" rotateSpeed="18s" reverse />
         </div>
-        <div className="hero-float" style={{ position: "absolute", top: "36%", right: "3%" }}>
-          <FloatingShape
-            shape="pill"
-            color="#4361ee"
-            size={110}
-            label="Since 2019"
-            rotateSpeed="0s"
-            floatDelay={1}
-          />
+        <div className="hero-float" style={{ position: "absolute", left: 400, top: 230, transform: "translate(-50%, -50%)" }}>
+          <FloatingShape shape="pill" color="#c8e62e" textColor="#150734" width={140} height={60} label="4 active SIGs" rotateSpeed="0s" floatDelay={0.5} />
         </div>
-        <div className="hero-float" style={{ position: "absolute", top: "52%", right: "19%" }}>
-          <FloatingShape
-            shape="pill"
-            color="#c8e62e"
-            size={120}
-            label="4 active SIGs"
-            rotateSpeed="0s"
-            floatDelay={0.5}
-          />
+        <div className="hero-float" style={{ position: "absolute", left: 140, top: 220, transform: "translate(-50%, -50%)" }}>
+          <FloatingShape shape="star" color="#f5f5f0" textColor="#150734" width={100} height={100} num="500+" label="students engaged" rotateSpeed="30s" reverse floatDelay={1.2} />
         </div>
-        <div className="hero-float" style={{ position: "absolute", bottom: "16%", right: "5%" }}>
-          <FloatingShape
-            shape="star"
-            color="#f5f5f0"
-            size={78}
-            num="500+"
-            label="students engaged"
-            rotateSpeed="30s"
-            reverse
-            floatDelay={1.2}
-          />
+        <div className="hero-float" style={{ position: "absolute", left: 240, top: 400, transform: "translate(-50%, -50%)" }}>
+          <FloatingShape shape="circle" color="#7209b7" width={100} height={100} num="6 years" label="of building" rotateSpeed="0s" floatDelay={0.8} />
         </div>
-        <div className="hero-float" style={{ position: "absolute", bottom: "4%", right: "22%" }}>
-          <FloatingShape
-            shape="circle"
-            color="#7209b7"
-            size={85}
-            num="6 years"
-            label="of building"
-            rotateSpeed="0s"
-            floatDelay={0.8}
-          />
+        <div className="hero-float" style={{ position: "absolute", left: 420, top: 400, transform: "translate(-50%, -50%)" }}>
+          <FloatingShape shape="pill" color="#4361ee" width={140} height={60} label="Since 2019" rotateSpeed="0s" floatDelay={1} />
         </div>
       </div>
 

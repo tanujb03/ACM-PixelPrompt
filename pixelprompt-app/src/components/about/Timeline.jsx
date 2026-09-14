@@ -23,7 +23,7 @@ export default function Timeline() {
         <Reveal
           as="div"
           stagger={0.15}
-          className="mt-14 flex flex-col gap-10 border-l-2 border-[var(--color-border)] pl-8"
+          className="mt-14 flex flex-col gap-10 border-l-2 border-[#1a1145] pl-8"
         >
           {about.timeline.map((milestone, i) => (
             <div key={milestone.id} className="relative">
@@ -38,13 +38,13 @@ export default function Timeline() {
                 style={{ background: colors[i % colors.length] }}
               />
 
-              <p className="text-xs font-semibold tracking-widest text-[var(--color-text-muted)] uppercase">
+              <p className="text-xs font-semibold tracking-widest text-[#1a1145]/60 uppercase">
                 {milestone.dateLabel}
               </p>
-              <h3 className="mt-2 font-display text-xl font-semibold text-[var(--color-text)]">
+              <h3 className="mt-2 font-display text-xl font-bold text-[#1a1145]">
                 {milestone.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-muted)]">
+              <p className="mt-2 text-sm leading-relaxed text-[#1a1145]/80">
                 {milestone.description}
               </p>
             </div>

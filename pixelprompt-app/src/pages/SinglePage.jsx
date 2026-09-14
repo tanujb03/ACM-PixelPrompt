@@ -4,7 +4,6 @@ import { useActiveSection } from "../context/ActiveSectionContext";
 
 // Home sections
 import Hero from "../components/home/Hero";
-import AwardsTicker from "../components/home/AwardsTicker";
 import WhatWeDoTeaser from "../components/home/WhatWeDoTeaser";
 import EventTree3D from "../components/home/EventTree3D";
 import TeamGlobePlaceholder from "../components/home/TeamGlobePlaceholder";
@@ -174,17 +173,9 @@ export default function SinglePage() {
       <ZoomSection id="home" bg="dark">
         <Hero />
 
-        <ScrollSlide variant="slide-up" distance={60} duration={0.8}>
-          <AwardsTicker />
-        </ScrollSlide>
-
         <WhatWeDoTeaser />
 
         <EventTree3D />
-
-        <ScrollSlide variant="zoom-in" duration={1} delay={0.2}>
-          <TeamGlobePlaceholder />
-        </ScrollSlide>
       </ZoomSection>
 
       {/* Wave: Dark → Lavender */}

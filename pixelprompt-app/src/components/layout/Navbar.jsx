@@ -38,13 +38,12 @@ export default function Navbar() {
   return (
     <header
       ref={headerRef}
-      className={`fixed top-4 left-1/2 z-50 -translate-x-1/2 transition-all duration-500 ${
+      className={`fixed left-1/2 z-50 w-[92vw] md:w-max -translate-x-1/2 transition-all duration-500 ${
         scrolled ? "top-2" : "top-5"
       }`}
-      style={{ width: "min(92vw, 820px)" }}
     >
       <nav
-        className={`glass flex items-center justify-between rounded-full px-3 py-2 transition-all duration-500 ${
+        className={`glass flex items-center justify-between md:justify-center md:gap-8 rounded-full px-4 py-2 transition-all duration-500 ${
           scrolled
             ? "bg-[rgba(13,2,33,0.85)] shadow-[0_4px_30px_rgba(124,92,255,0.1)]"
             : ""
@@ -53,13 +52,9 @@ export default function Navbar() {
         {/* Logo */}
         <button
           onClick={() => handleNavClick("home")}
-          className="flex items-center gap-2 pl-3 font-display text-lg font-bold tracking-tight text-[var(--color-text)]"
+          className="flex items-center gap-2 pl-3"
         >
-          <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="32" height="32" rx="8" fill="var(--color-accent)" />
-            <path d="M8 22L16 8L24 22H8Z" fill="white" strokeLinejoin="round" />
-          </svg>
-          <span className="hidden sm:inline">{site.shortName}</span>
+          <img src="/logo.svg" alt="ACM MITS" className="h-10 w-auto" />
         </button>
 
         {/* Desktop nav links with roll-hover effect */}

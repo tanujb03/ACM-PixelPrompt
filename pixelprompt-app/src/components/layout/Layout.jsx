@@ -2,7 +2,6 @@ import { Outlet } from "react-router-dom";
 import { ActiveSectionProvider } from "../../context/ActiveSectionContext";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import BottomBar from "./BottomBar";
 import CustomCursor from "../shared/CustomCursor";
 
 export default function Layout() {
@@ -15,7 +14,6 @@ export default function Layout() {
           <Outlet />
         </main>
         <Footer />
-        <BottomBar />
       </div>
     </ActiveSectionProvider>
   );
