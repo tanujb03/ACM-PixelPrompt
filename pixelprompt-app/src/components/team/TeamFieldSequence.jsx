@@ -6,16 +6,15 @@ import VerticalLabel from "./VerticalLabel";
 import { coreTeam, coreFormation, seniorTeam, seniorFormation } from "../../data/teamRoster";
 
 // Total pinned scroll distance (px) covering both hand-offs, split evenly
-// between the two — tuned so each hand-off completes in roughly two scroll
-// gestures rather than a long scrubbed scroll.
-const TRANSITION_SCROLL_PX = 900;
+// between the two — tuned so each hand-off completes in roughly a single
+// scroll gesture rather than a long scrubbed scroll.
+const TRANSITION_SCROLL_PX = 400;
 
 export default function TeamFieldSequence() {
   const sequenceRef = useRef(null);
   const stageRef = useRef(null);
   const panel1Ref = useRef(null);
   const panel2Ref = useRef(null);
-  const panel3Ref = useRef(null);
   const field1Api = useRef(null);
   const field2Api = useRef(null);
 
@@ -23,7 +22,6 @@ export default function TeamFieldSequence() {
     const ctx = gsap.context(() => {
       gsap.set(panel1Ref.current, { autoAlpha: 1, yPercent: 0 });
       gsap.set(panel2Ref.current, { autoAlpha: 0, yPercent: 100 });
-      gsap.set(panel3Ref.current, { autoAlpha: 0, yPercent: 100 });
 
       // Two back-to-back segments of equal length: each panel slides
       // straight up and out as the next slides up into place from below —
@@ -56,19 +54,14 @@ export default function TeamFieldSequence() {
           0
         )
         .call(() => field2Api.current?.playEntrance(), null, 1)
-        .to(panel2Ref.current, { yPercent: -100, autoAlpha: 0, duration: 1, ease: "power2.inOut" }, 1)
-        .fromTo(
-          panel3Ref.current,
-          { yPercent: 100, autoAlpha: 0 },
-          { yPercent: 0, autoAlpha: 1, duration: 1, ease: "power2.inOut" },
-          1
-        );
+        .to(stageRef.current, { y: "+=0", duration: 1 }, 1);
     }, sequenceRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
+    <>
     <section
       ref={sequenceRef}
       className="relative"
@@ -79,11 +72,14 @@ export default function TeamFieldSequence() {
           <FieldPanel
             ref={field1Api}
             label="Core Team"
-            caption="The starting eleven running the chapter day to day."
             members={coreTeam}
             formation={coreFormation}
             theme="gold"
             cardSize="clamp(90px, 9vw, 170px)"
+            rowGap={64}
+            spreadFactor={0.7}
+            nameFontSize="13px"
+            roleFontSize="10px"
           />
         </div>
 
@@ -91,21 +87,26 @@ export default function TeamFieldSequence() {
           <FieldPanel
             ref={field2Api}
             label="Senior Team"
-            caption="The squad behind operations, tech, content, and design."
             members={seniorTeam}
             formation={seniorFormation}
             theme="silver"
             cardSize="clamp(52px, 5.2vw, 92px)"
+            rowGap={24}
+            spreadFactor={0.88}
+            nameFontSize="9px"
+            roleFontSize="7px"
           />
-        </div>
-
-        <div ref={panel3Ref} className="absolute inset-0 overflow-y-auto bg-[var(--color-bg)]">
-          <VerticalLabel text="Faculty" overlay />
-          <div className="flex min-h-full w-full items-start justify-center px-6 pt-20 pb-24 sm:px-12 sm:pt-24">
-            <FacultyMentorCards />
-          </div>
         </div>
       </div>
     </section>
+
+    {/* Normal scrolling flow after the pinned sequence finishes */}
+    <div className="relative w-full bg-[var(--color-bg)] pt-12 pb-24">
+      <VerticalLabel text="Faculty" />
+      <div className="flex w-full items-start justify-center px-6 sm:px-12">
+        <FacultyMentorCards />
+      </div>
+    </div>
+    </>
   );
 }
