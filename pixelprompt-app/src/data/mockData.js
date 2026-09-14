@@ -193,11 +193,11 @@ export const about = {
   ],
   facultyAdvisorHeading: "Faculty Advisor",
   facultyAdvisor: {
-    name: "Dr. Ramesh Iyer",
+    name: "Neha Bharadwaj",
     role: "Professor, Dept. of Computer Science & Engineering, Faculty Advisor, ACM MITS",
     // Mocked — no real photo exists yet. Consistent with the placeholder
     // convention used across the rest of the site for people cards.
-    photo: "https://i.pravatar.cc/300?img=68",
+    photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400",
     quote:
       "ACM MITS gives students room to learn by building, not just by studying — that's exactly the gap it fills.",
   },
@@ -235,9 +235,9 @@ export const team = {
   facultyMentors: [
     {
       id: "faculty-1",
-      name: "Dr. Ramesh Iyer",
+      name: "Neha Bharadwaj",
       role: "Professor, Dept. of Computer Science & Engineering",
-      photo: "https://i.pravatar.cc/300?img=68",
+      photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400",
       quote:
         "ACM MITS gives students room to learn by building, not just by studying — that's exactly the gap it fills.",
     },
