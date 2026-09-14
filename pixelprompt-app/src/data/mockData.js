@@ -232,19 +232,6 @@ export const flagshipEvent = {
 };
 
 export const team = {
-  officers: [
-    { id: "officer-1", name: "Ananya Iyer", role: "President", photo: "https://i.pravatar.cc/300?img=5" },
-    { id: "officer-2", name: "Rohan Verma", role: "Vice President", photo: "https://i.pravatar.cc/300?img=13" },
-    { id: "officer-3", name: "Sana Sheikh", role: "Secretary", photo: "https://i.pravatar.cc/300?img=25" },
-    { id: "officer-4", name: "Karthik Nair", role: "Treasurer", photo: "https://i.pravatar.cc/300?img=8" },
-    { id: "officer-5", name: "Divya Menon", role: "Technical Head", photo: "https://i.pravatar.cc/300?img=44" },
-    { id: "officer-6", name: "Ishaan Gupta", role: "Design Head", photo: "https://i.pravatar.cc/300?img=15" },
-    { id: "officer-7", name: "Fatima Ansari", role: "Membership Chair", photo: "https://i.pravatar.cc/300?img=29" },
-    { id: "officer-8", name: "Nikhil Joshi", role: "Webmaster", photo: "https://i.pravatar.cc/300?img=51" },
-    { id: "officer-9", name: "Riya Kapoor", role: "PR Chair", photo: "https://i.pravatar.cc/300?img=36" },
-    { id: "officer-10", name: "Aditya Pillai", role: "Events Coordinator", photo: "https://i.pravatar.cc/300?img=60" },
-    { id: "officer-11", name: "Meher Chawla", role: "Outreach Coordinator", photo: "https://i.pravatar.cc/300?img=41" },
-  ],
   facultyMentors: [
     {
       id: "faculty-1",
